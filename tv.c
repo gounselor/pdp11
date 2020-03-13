@@ -203,6 +203,9 @@ dato_tv(Bus *bus, void *dev)
 	case KMS:
 		tv->kms = d & ~037;
 		SETMASK(tv->kma_hi, (d&3)<<16, 3<<16);
+		if (tv->kms & 07400)
+			/* Door buzzer, elevator buttons. */
+			fprintf(stderr, "(outputs)\n");
 		return 0;
 	case KMA:
 		tv->kma_lo = d & 0174;
